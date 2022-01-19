@@ -62,9 +62,9 @@ public class FilmService {
         return filmRepository.findByYear(year);
     }
 
-    public List<Film> getByCountry(String country) {
-        System.out.println(filmRepository.findByCountry(country).size());
-        return filmRepository.findByCountry(country);
+    public List<Film> getByCountry(String countryName) {
+        System.out.println(filmRepository.findByCountryName(countryName).size());
+        return filmRepository.findByCountryName(countryName);
     }
 
     public List<Film> getFilmActor(String lastName) {
@@ -95,7 +95,7 @@ public class FilmService {
         Film existingFilm = filmRepository.findById(film.getId()).orElse(null);
         existingFilm.setTitle(film.getTitle());
         existingFilm.setYear(film.getYear());
-        existingFilm.setCountry(film.getCountry());
+        existingFilm.setCountryName(film.getCountryName());
         return filmRepository.save(existingFilm);
     }
 
@@ -103,8 +103,8 @@ public class FilmService {
         return filmRepository.countFilmByCategory(category);
     }
 
-    public long countCountry(String country) {
-        return filmRepository.countFilmByCountry(country);
+    public long countCountry(String countryName) {
+        return filmRepository.countFilmByCountryName(countryName);
     }
 
     public long countYear( int year){

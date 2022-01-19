@@ -11,7 +11,7 @@ public class FilmDTO {
     private long id;
     private String title;
     private int year;
-    private String country;
+    private String countryName;
     private List<ActorDTO> actors;
 
 
