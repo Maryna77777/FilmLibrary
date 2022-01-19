@@ -22,33 +22,36 @@ public class CountryService {
 
     public List<Country> saveCountry() {
 
-        List<Country> countryList = countryRepository.findAll();
-        List<Film> filmList = filmRepository.findAll();
+            List<Country> countryList = countryRepository.findAll();
+            List<Film> filmList = filmRepository.findAll();
+               try {
+            for (int j = 0; j < filmList.size(); j++) {
+                 for (int i = 0; i < countryList.size(); i++) {
 
-        for(int j = 0; j <filmList.size(); j++){
- //       for (Film f : filmList) {
-            for(int i = 0; i<countryList.size(); i++){
-//            for (Country c : countryList) {
-                if (filmList.get(j).getCountryName().equals(countryList.get(i).getName())){
-//                    filmList.get(j).setTitle(filmList.get(j).getTitle());
-//                    filmList.get(j).setYear(filmList.get(j).getYear());
-                    filmList.get(j).setCountry(countryList.get(i));
-                }
+                    if (filmList.get(j).getCountryName().equals(countryList.get(i).getName())) {
 
-                else {
-                    Country country = new Country();
-                    country.setId(country.getId());
-                    country.setName(filmList.get(j).getCountryName());
-                    countryList.add(country);
-//                    filmList.get(j).setTitle(filmList.get(j).getTitle());
-//                    filmList.get(j).setYear(filmList.get(j).getYear());
-                    filmList.get(j).setCountry(country);
+                        filmList.get(j).setCountry(countryList.get(i));
+                    }
+//                    else {
+//                        Country country = new Country();
+//                        country.setId(country.getId());
+//                        country.setName(filmList.get(j).getCountryName());
+//                        countryList.add(country);
+//                        filmList.get(j).setCountry(country);
+//                    }
                 }
             }
+        } catch (OutOfMemoryError oome) {
+            System.err.println("Max JVM memory: " + Runtime.getRuntime().maxMemory());
         }
- //       return countryList;
-        List<Film> savedFilms = filmRepository.saveAll(filmList);
-        List<Country> savedCountries = countryRepository.saveAll(countryList);
-        return savedCountries;
-   }
+
+            List<Film> savedFilms = filmRepository.saveAll(filmList);
+           List<Country> savedCountries = countryRepository.saveAll(countryList);
+            return savedCountries;
+        }
+
+
+    public Country saveCuntry1(Country country) {
+        return countryRepository.save(country);
+    }
 }

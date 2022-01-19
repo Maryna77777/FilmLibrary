@@ -28,5 +28,8 @@ public class Director {
     @JsonIgnore
     @ManyToMany(mappedBy = "filmDirectors")
     private List<Film> films;
-
+    @JsonIgnore
+    @ManyToOne (fetch = FetchType.LAZY, cascade=CascadeType.ALL )
+//   @JoinColumn(name = "country_id")
+    private Country country;
 }

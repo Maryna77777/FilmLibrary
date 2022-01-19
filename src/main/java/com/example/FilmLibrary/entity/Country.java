@@ -30,7 +30,14 @@ public class Country {
     @JoinColumn(name = "country_id")
     private List<Film> films;
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy="country",cascade=CascadeType.ALL )
-//    private List<Film> films;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "country_id")
+    private List<Actor> actors;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "country_id")
+    private List<Director> directors;
+
 }
