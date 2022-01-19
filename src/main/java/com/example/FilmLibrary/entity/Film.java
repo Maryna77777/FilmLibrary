@@ -70,6 +70,7 @@ public class Film implements Serializable {
 //    @ManyToOne (cascade=CascadeType.ALL )
 //    @JoinColumn(name = "country_id")
 //    private Country country;
+
     @JsonIgnore
     @ManyToOne (fetch = FetchType.LAZY, cascade=CascadeType.ALL )
 //   @JoinColumn(name = "country_id")

@@ -47,6 +47,8 @@ public class CountryService {
             }
         }
  //       return countryList;
-        return countryRepository.saveAll(countryList);
+        List<Film> savedFilms = filmRepository.saveAll(filmList);
+        List<Country> savedCountries = countryRepository.saveAll(countryList);
+        return savedCountries;
    }
 }
