@@ -30,8 +30,8 @@ public class CountryService {
             for(int i = 0; i<countryList.size(); i++){
 //            for (Country c : countryList) {
                 if (filmList.get(j).getCountryName().equals(countryList.get(i).getName())){
-                    filmList.get(j).setTitle(filmList.get(j).getTitle());
-                    filmList.get(j).setYear(filmList.get(j).getYear());
+//                    filmList.get(j).setTitle(filmList.get(j).getTitle());
+//                    filmList.get(j).setYear(filmList.get(j).getYear());
                     filmList.get(j).setCountry(countryList.get(i));
                 }
 
@@ -40,8 +40,8 @@ public class CountryService {
                     country.setId(country.getId());
                     country.setName(filmList.get(j).getCountryName());
                     countryList.add(country);
-                    filmList.get(j).setTitle(filmList.get(j).getTitle());
-                    filmList.get(j).setYear(filmList.get(j).getYear());
+//                    filmList.get(j).setTitle(filmList.get(j).getTitle());
+//                    filmList.get(j).setYear(filmList.get(j).getYear());
                     filmList.get(j).setCountry(country);
                 }
             }
