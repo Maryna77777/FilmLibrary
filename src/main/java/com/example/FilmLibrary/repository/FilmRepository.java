@@ -39,13 +39,9 @@ public interface FilmRepository extends JpaRepository <Film,Long> {
     //@Query("select f from Film f join f.filmDirectors d where  f.year=:year ")
     //     List<Film> findByYear(@Param("year") int year, Sort sort) ;
 
-    List<Film> findByCountryName(String countryName);
-
 
     @Query("select  f from Film f join f.actors a where  a.lastName = :lastName")
     List<Film> findByLastName(@Param("lastName") String lastName);
-
-    long countFilmByCountryName(String countryName);
 
     long countFilmByYear(int year);
 

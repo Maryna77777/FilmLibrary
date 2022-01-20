@@ -25,10 +25,9 @@ public class FilmService {
         return filmRepository.save(film);
     }
 
-    public List<Film> saveFilm(List<Film> films) {
+    public List<Film> saveFilms (List<Film> films) {
         return filmRepository.saveAll(films);
     }
-
 
     public List<FilmDTO> getAllFilmsWithActors() {
         List<FilmDTO> filmMapperDTOList = new ArrayList<>();
@@ -44,7 +43,7 @@ public class FilmService {
         return filmRepository.findAll(Sort.by("title"));
     }
 
-    public Page<Film> getFilmPage(Pageable pageable) {
+    public Page <Film> getFilmPage(Pageable pageable) {
         return filmRepository.findAll(pageable);
     }
 
@@ -60,11 +59,6 @@ public class FilmService {
     public List<Film> findByYear(int year) {
         System.out.println(filmRepository.findByYear(year).size());
         return filmRepository.findByYear(year);
-    }
-
-    public List<Film> getByCountry(String countryName) {
-        System.out.println(filmRepository.findByCountryName(countryName).size());
-        return filmRepository.findByCountryName(countryName);
     }
 
     public List<Film> getFilmActor(String lastName) {
@@ -88,14 +82,13 @@ public class FilmService {
 
     public String deleteFilm(Long id) {
         filmRepository.deleteById(id);
-        return "product removed !! " + id;
+        return "film removed !! " + id;
     }
 
     public Film updateFilm(Film film) {
         Film existingFilm = filmRepository.findById(film.getId()).orElse(null);
         existingFilm.setTitle(film.getTitle());
         existingFilm.setYear(film.getYear());
-        existingFilm.setCountryName(film.getCountryName());
         return filmRepository.save(existingFilm);
     }
 
@@ -103,15 +96,9 @@ public class FilmService {
         return filmRepository.countFilmByCategory(category);
     }
 
-    public long countCountry(String countryName) {
-        return filmRepository.countFilmByCountryName(countryName);
-    }
-
     public long countYear( int year){
         return filmRepository.countFilmByYear(year);
     }
-
-
 
 }
 

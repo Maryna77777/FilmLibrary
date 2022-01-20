@@ -1,17 +1,13 @@
 package com.example.FilmLibrary.DTO;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.List;
 
-@Getter
-@Setter
-public class FilmDTO {
+public class FilmWhithActorDTO {
     private long id;
     private String title;
     private int year;
     private List<ActorDTO> actors;
 
-
 }
+
+

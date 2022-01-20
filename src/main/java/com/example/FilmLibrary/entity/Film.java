@@ -24,20 +24,16 @@ public class Film implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @NotBlank
-//    @Size(min=2, max=50, message = "Title should be between 2 and 50 character")
-//    @NotEmpty(message = "Title should not be empty")
+    @NotBlank
+    @Size(min=2, max=50, message = "Title should be between 2 and 50 character")
+    @NotEmpty(message = "Title should not be empty")
     @Column(name = "title")
     private String title;
 
-//    @Min(value = 1888, message = "Year should be greater 1888")
-//    @Max(value = 2121)
+    @Min(value = 1888, message = "Year should be greater 1888")
+    @Max(value = 2121)
     @Column(name = "year")
     private int year;
-
-  //  @NotEmpty(message = "Country should not be empty")
-    @Column(name = "country")
-    private String countryName;
 
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

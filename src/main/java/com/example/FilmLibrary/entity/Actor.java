@@ -28,9 +28,6 @@ public class Actor implements Serializable {
     @NotBlank
     @Column(name = "LAST_NAME")
     private String lastName;
-    @NotBlank
-    @Column(name = "NATIONALITY")
-    private String nationality;
     @JsonIgnore
     @ManyToMany(mappedBy = "actors")
     private List<Film> films;
