@@ -35,10 +35,6 @@ public class Film implements Serializable {
     @Column(name = "year")
     private int year;
 
-    @NotEmpty(message = "Country should not be empty")
-    @Column(name = "country")
-    private String country;
-
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
@@ -66,4 +62,8 @@ public class Film implements Serializable {
     )
     private List <Director> filmDirectors = new ArrayList<>();
 
+    @JsonIgnore
+    @ManyToOne (fetch = FetchType.LAZY, cascade=CascadeType.ALL )
+//   @JoinColumn(name = "country_id")
+    private Country country;
 }

@@ -23,10 +23,11 @@ public class Director {
     private String firstNameDirector;
     @Column(name = "LAST_NAME_DIRECTOR")
     private String lastNameDirector;
-    @Column(name = "NATIONALITY_DIRECTOR")
-    private String nationalityDirector;
     @JsonIgnore
     @ManyToMany(mappedBy = "filmDirectors")
     private List<Film> films;
-
+    @JsonIgnore
+    @ManyToOne (fetch = FetchType.LAZY, cascade=CascadeType.ALL )
+//   @JoinColumn(name = "country_id")
+    private Country country;
 }

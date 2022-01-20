@@ -1,10 +1,7 @@
 package com.example.FilmLibrary.service;
 
-import com.example.FilmLibrary.DTO.FilmDTO;
 import com.example.FilmLibrary.DTO.GenreDTO;
-import com.example.FilmLibrary.entity.Film;
 import com.example.FilmLibrary.entity.Genre;
-import com.example.FilmLibrary.mapper.FilmMapper;
 import com.example.FilmLibrary.mapper.GenreMapper;
 import com.example.FilmLibrary.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +14,6 @@ import java.util.List;
 public class GenreService {
     @Autowired
     GenreRepository genreRepository;
-
 
     public Genre saveGenre(Genre genre) {
         return   genreRepository.save(genre);
@@ -33,10 +29,6 @@ public class GenreService {
 
     public Genre getGenreById(Long id) {
         return genreRepository.findById(id).orElse(null);
-    }
-
-    public Genre getGenreByCategory(String category) {
-        return genreRepository.findByCategory(category);
     }
 
     public Genre updateGenre (Genre genre) {

@@ -1,7 +1,6 @@
 package com.example.FilmLibrary.controller;
 
 
-import com.example.FilmLibrary.DTO.FilmDTO;
 import com.example.FilmLibrary.entity.Director;
 import com.example.FilmLibrary.service.DirectorService;
 import org.springframework.beans.factory.annotation.Autowired;

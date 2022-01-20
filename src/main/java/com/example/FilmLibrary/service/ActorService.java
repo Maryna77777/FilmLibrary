@@ -42,12 +42,11 @@ public class ActorService {
         Actor existingActor = actorRepository.findById(actor.getId()).orElse(null);
         existingActor.setFirstName (actor.getFirstName());
         existingActor.setLastName(actor.getLastName());
-        existingActor.setNationality(actor.getNationality());
         return actorRepository.save(existingActor);
     }
 
     public String deleteActor(Long id) {
         actorRepository.deleteById(id);
-        return "product removed !! " + id;
+        return "actor removed !! " + id;
     }
 }

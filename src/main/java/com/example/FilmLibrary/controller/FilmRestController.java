@@ -1,6 +1,7 @@
 package com.example.FilmLibrary.controller;
 
 import com.example.FilmLibrary.DTO.FilmDTO;
+import com.example.FilmLibrary.DTO.FilmWhithActorDTO;
 import com.example.FilmLibrary.entity.Film;
 import com.example.FilmLibrary.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class FilmRestController {
 
     @PostMapping("/addFilms")
     public List<Film> addFilms(@RequestBody @Valid List<Film> filmList) {
-        return service.saveFilm(filmList);
+        return service.saveFilms(filmList);
     }
 
     @GetMapping("/allFilms")
@@ -45,7 +46,7 @@ public class FilmRestController {
     }
 
     @GetMapping("/allFilmsPage")
-    public Page<Film> findAllFilmPage(@PageableDefault(sort = "title", direction = Sort.Direction.ASC) Pageable pageable) {
+    public Page<Film> findAllFilmPage(@PageableDefault(sort = "title", direction = Sort.Direction.ASC, size = 50) Pageable pageable) {
         return service.getFilmPage(pageable);
     }
 
@@ -57,11 +58,6 @@ public class FilmRestController {
     @GetMapping("/findByLikeTitle/{title}")
     public List<Film> findByLikeTitle(@PathVariable String title) {
         return service.getByLikeTitle(title);
-    }
-
-    @GetMapping("/findByCountry/{country}")
-    public List<Film> findByCountry(@PathVariable String country) {
-        return service.getByCountry(country);
     }
 
     @GetMapping("/filmByTitle/{title}")
@@ -93,11 +89,6 @@ public class FilmRestController {
     @GetMapping("/count/FilmGenre/{category}")
     public long countFilmGenre(@PathVariable String category) {
         return service.countCategory(category);
-    }
-
-     @GetMapping("/count/FilmCountry/{country}")
-    public long countFilmCountry(@PathVariable String country) {
-        return service.countCountry(country);
     }
 
     @GetMapping("/count/FilmYear/{year}")

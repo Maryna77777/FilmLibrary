@@ -23,8 +23,6 @@ public class DirectorService {
         return directorRepository.saveAll(directors);
     }
 
-
-
     public Director getDirectorById(Long id) {
         return directorRepository.findById(id).orElse(null);
     }
@@ -37,22 +35,20 @@ public class DirectorService {
         Director existingDirector = directorRepository.findById(director.getId()).orElse(null);
         existingDirector.setFirstNameDirector (director.getFirstNameDirector());
         existingDirector.setLastNameDirector(director.getLastNameDirector());
-        existingDirector.setNationalityDirector(director.getNationalityDirector());
         return directorRepository.save(existingDirector);
     }
 
     public String deleteDirector(Long id) {
         directorRepository.deleteById(id);
-        return "product removed !! " + id;
+        return "Diretor removed !! " + id;
     }
 
     public List<Director> getDirector() {
-
         return directorRepository.findAll(Sort.by("lastNameDirector"));
     }
-
 
     public Page<Director> getDirectorPage(Pageable pageable) {
         return directorRepository.findAll(pageable) ;
     }
+
 }
