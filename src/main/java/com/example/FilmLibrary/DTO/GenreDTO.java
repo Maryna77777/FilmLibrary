@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-
-
 @EnableTransactionManagement
 @Getter
 @Setter

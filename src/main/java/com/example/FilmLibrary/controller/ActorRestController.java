@@ -1,7 +1,8 @@
 package com.example.FilmLibrary.controller;
 
 
-import com.example.FilmLibrary.entity.Actor;
+import com.example.FilmLibrary.DTO.ActorDTO;
+import com.example.FilmLibrary.DTO.ActorWhithAllRelatedEntitiesDTO;
 import com.example.FilmLibrary.service.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,38 +16,33 @@ public class ActorRestController {
     ActorService actorService;
 
     @PostMapping("/addActor")
-    public Actor addActor (@RequestBody Actor actor) {
-        return actorService.saveActor(actor);
+    public ActorDTO addActor (@RequestBody ActorDTO actorDTO) {
+        return actorService.saveActor(actorDTO);
     }
 
     @GetMapping("/findActorFilm/{title}")
-    public List<Actor> findActorFilm (@PathVariable String title){
-        return actorService.findActorFilm(title);
-    }
-
-    @PostMapping("/addActors")
-    public List<Actor> addActors(@RequestBody List<Actor> actorList) {
-        return actorService.saveActor(actorList);
+    public List<ActorWhithAllRelatedEntitiesDTO> findActorFilm (@PathVariable String title){
+        return actorService.findActorFilms(title);
     }
 
     @GetMapping("/allActors")
-    public List<Actor> findAllActors() {
-        return actorService.getActor ();
+    public List<ActorDTO> findAllActors() {
+        return actorService.getAllActors();
     }
 
-     @GetMapping("/actorById/{id}")
-    public Actor findActorById(@PathVariable Long id) {
+    @GetMapping("/actorById/{id}")
+    public ActorWhithAllRelatedEntitiesDTO findActorById(@PathVariable Long id) {
         return actorService.getActorById(id);
     }
 
     @GetMapping("/actorByName/{lastName}")
-    public Actor findActorByLastName(@PathVariable String lastName) {
+    public ActorWhithAllRelatedEntitiesDTO findActorByLastName(@PathVariable String lastName) {
         return actorService.getActorByLastName(lastName);
     }
 
     @PutMapping("/updateActor")
-    public Actor updateActor(@RequestBody Actor actor) {
-        return actorService.updateActor(actor);
+    public ActorDTO updateActor(@RequestBody ActorDTO actorDTO) {
+        return actorService.updateActor(actorDTO);
     }
 
     @DeleteMapping("/deleteActor/{id}")
