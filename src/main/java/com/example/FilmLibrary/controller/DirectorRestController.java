@@ -1,6 +1,8 @@
 package com.example.FilmLibrary.controller;
 
 
+import com.example.FilmLibrary.DTO.DirectorDTO;
+import com.example.FilmLibrary.DTO.DirectorWhithAllRelatedEntitiesDTO;
 import com.example.FilmLibrary.entity.Director;
 import com.example.FilmLibrary.service.DirectorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,22 +31,22 @@ public class DirectorRestController {
     }
 
     @GetMapping("/allDirectors")
-   public List<Director> findAllDirectors() {
-     return directorService.getDirector ();
+   public List<DirectorDTO> findAllDirectors() {
+     return directorService.getAllDirector();
  }
 
     @GetMapping("/allDirectorsPage")
     public Page<Director> findAllDirectorsPage(@PageableDefault(sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
         return directorService.getDirectorPage (pageable);
     }
-//@PageableDefault(sort = "id",direction = Sort.Direction.Desc
+
     @GetMapping("/directorById/{id}")
-    public Director findDirectorById(@PathVariable Long id) {
+    public DirectorWhithAllRelatedEntitiesDTO findDirectorById(@PathVariable Long id) {
         return directorService.getDirectorById(id);
     }
 
     @GetMapping("/directorByName/{lastNameDirector}")
-    public Director findDirectorByLastName(@PathVariable String lastNameDirector) {
+    public DirectorWhithAllRelatedEntitiesDTO findDirectorByLastName(@PathVariable String lastNameDirector) {
         return directorService.getDirectorByLastName(lastNameDirector);
     }
 

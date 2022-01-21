@@ -1,6 +1,14 @@
 package com.example.FilmLibrary.service;
 
+import com.example.FilmLibrary.DTO.DirectorDTO;
+import com.example.FilmLibrary.DTO.DirectorWhithAllRelatedEntitiesDTO;
+import com.example.FilmLibrary.DTO.FilmDTO;
 import com.example.FilmLibrary.entity.Director;
+import com.example.FilmLibrary.entity.Film;
+import com.example.FilmLibrary.mapper.DirectorMapper;
+import com.example.FilmLibrary.mapper.DirectorWhithAllRelatedEntitiesMapper;
+import com.example.FilmLibrary.mapper.FilmMapper;
+import com.example.FilmLibrary.mapper.FilmWhithAllRelatedEntitiesMapper;
 import com.example.FilmLibrary.repository.DirectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,12 +32,12 @@ public class DirectorService {
         return directorRepository.saveAll(directors);
     }
 
-    public Director getDirectorById(Long id) {
-        return directorRepository.findById(id).orElse(null);
+    public DirectorWhithAllRelatedEntitiesDTO getDirectorById(Long id) {
+        return DirectorWhithAllRelatedEntitiesMapper.DIRECTOR_WHITH_ALL_RELATED_ENTITIES_MAPPER.fromDirector(directorRepository.findById(id).orElse(null));
     }
 
-    public Director getDirectorByLastName(String lastNameDirector) {
-        return directorRepository.findByLastNameDirector(lastNameDirector);
+    public DirectorWhithAllRelatedEntitiesDTO getDirectorByLastName(String lastNameDirector) {
+        return DirectorWhithAllRelatedEntitiesMapper.DIRECTOR_WHITH_ALL_RELATED_ENTITIES_MAPPER.fromDirector(directorRepository.findByLastNameDirector(lastNameDirector));
     }
 
     public Director updateDirector (Director director) {
@@ -40,11 +49,16 @@ public class DirectorService {
 
     public String deleteDirector(Long id) {
         directorRepository.deleteById(id);
-        return "Diretor removed !! " + id;
+        return "Director removed !! " + id;
     }
 
-    public List<Director> getDirector() {
-        return directorRepository.findAll(Sort.by("lastNameDirector"));
+    public List<DirectorDTO> getAllDirector() {
+        List<DirectorDTO> directorDTOList = new ArrayList<>();
+        List<Director> directorList = directorRepository.findAll(Sort.by("lastNameDirector"));
+        for (Director director: directorList) {
+            directorDTOList.add(DirectorMapper.DIRECTOR_MAPPER.fromDirector(director));
+        }
+        return directorDTOList;
     }
 
     public Page<Director> getDirectorPage(Pageable pageable) {

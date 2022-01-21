@@ -26,8 +26,8 @@ public class GenreRestController {
     }
 
     @GetMapping("/allGenres")
-    public List<Genre> findAllGenres() {
-        return genreService.getGenre ();
+    public List<GenreDTO> findAllGenres() {
+        return genreService.getAllGenre();
     }
 
     @GetMapping("/genreById/{id}")

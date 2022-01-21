@@ -2,9 +2,11 @@ package com.example.FilmLibrary.service;
 
 
 import com.example.FilmLibrary.DTO.FilmDTO;
+import com.example.FilmLibrary.DTO.FilmWhithAllRelatedEntitiesDTO;
 import com.example.FilmLibrary.entity.Film;
 import com.example.FilmLibrary.mapper.FilmMapper;
 
+import com.example.FilmLibrary.mapper.FilmWhithAllRelatedEntitiesMapper;
 import com.example.FilmLibrary.repository.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,12 +26,24 @@ public class FilmService {
     public Film saveFilm(Film film) {
         return filmRepository.save(film);
     }
+//    public FilmDTO saveFilmDTO(FilmDTO filmDTO) {
+//        return FilmMapper.FILM_MAPPER.fromFilm(filmRepository.save(film));
+//    }
 
     public List<Film> saveFilms (List<Film> films) {
         return filmRepository.saveAll(films);
     }
 
-    public List<FilmDTO> getAllFilmsWithActors() {
+    public List<FilmWhithAllRelatedEntitiesDTO> getAllFilmsWhithAllRelatedEntities() {
+        List<FilmWhithAllRelatedEntitiesDTO> filmMapperDTOList = new ArrayList<>();
+        List<Film> filmList = filmRepository.findAll(Sort.by("title"));
+        for (Film film : filmList) {
+            filmMapperDTOList.add(FilmWhithAllRelatedEntitiesMapper.FILM_WHITH_ALL_RELATED_ENTITIES_MAPPER.fromFilm(film));
+        }
+        return filmMapperDTOList;
+    }
+
+    public List<FilmDTO> getAllFilms() {
         List<FilmDTO> filmMapperDTOList = new ArrayList<>();
         List<Film> filmList = filmRepository.findAll();
         for (Film film : filmList) {
@@ -38,46 +52,62 @@ public class FilmService {
         return filmMapperDTOList;
     }
 
-    public List<Film> getFilm() {
-        System.out.println(filmRepository.findAll().size());
-        return filmRepository.findAll(Sort.by("title"));
-    }
-
     public Page <Film> getFilmPage(Pageable pageable) {
         return filmRepository.findAll(pageable);
     }
 
-    public Film getFilmById(Long id) {
-        return filmRepository.findById(id).orElse(null);
+    public FilmWhithAllRelatedEntitiesDTO  getFilmById(Long id) {
+        return FilmWhithAllRelatedEntitiesMapper.FILM_WHITH_ALL_RELATED_ENTITIES_MAPPER.fromFilm(filmRepository.findById(id).orElse(null));
     }
 
-    public Film getByTitle(String title) {
-        return filmRepository.findByTitle(title);
+    public FilmWhithAllRelatedEntitiesDTO getByTitle(String title) {
+        return FilmWhithAllRelatedEntitiesMapper.FILM_WHITH_ALL_RELATED_ENTITIES_MAPPER.fromFilm(filmRepository.findByTitle(title));
     }
 
-
-    public List<Film> findByYear(int year) {
-        System.out.println(filmRepository.findByYear(year).size());
-        return filmRepository.findByYear(year);
+    public List<FilmWhithAllRelatedEntitiesDTO> findByYear(int year) {
+        List<FilmWhithAllRelatedEntitiesDTO> filmMapperDTOList = new ArrayList<>();
+        List<Film> filmList = filmRepository.findByYear(year);
+        for (Film film : filmList) {
+            filmMapperDTOList.add(FilmWhithAllRelatedEntitiesMapper.FILM_WHITH_ALL_RELATED_ENTITIES_MAPPER.fromFilm(film));
+        }
+        return filmMapperDTOList;
     }
 
-    public List<Film> getFilmActor(String lastName) {
-        return filmRepository.findByLastName(lastName);
+    public List<FilmDTO> getFilmActor(String lastName) {
+        List<FilmDTO> filmMapperDTOList = new ArrayList<>();
+        List<Film> filmList = filmRepository.findByLastName(lastName);
+        for (Film film : filmList) {
+            filmMapperDTOList.add(FilmMapper.FILM_MAPPER.fromFilm(film));
+        }
+        return filmMapperDTOList;
+
     }
 
-    public List<Film> getByLikeTitle(String title) {
-        System.out.println(filmRepository.findByLikeTitle(title).size());
-        return filmRepository.findByLikeTitle(title);
+    public List<FilmWhithAllRelatedEntitiesDTO> getByLikeTitle(String title) {
+        List<FilmWhithAllRelatedEntitiesDTO> filmMapperDTOList = new ArrayList<>();
+        List<Film> filmList = filmRepository.findByLikeTitle(title);
+        for (Film film : filmList) {
+            filmMapperDTOList.add(FilmWhithAllRelatedEntitiesMapper.FILM_WHITH_ALL_RELATED_ENTITIES_MAPPER.fromFilm(film));
+        }
+        return filmMapperDTOList;
     }
 
-    public List<Film> getFilmGenre(String category) {
-        System.out.println(filmRepository.findByCategory(category).size());
-        return filmRepository.findByCategory(category);
+    public List<FilmWhithAllRelatedEntitiesDTO> getFilmGenre(String category) {
+        List<FilmWhithAllRelatedEntitiesDTO> filmMapperDTOList = new ArrayList<>();
+        List<Film> filmList = filmRepository.findByCategory(category);
+        for (Film film : filmList) {
+            filmMapperDTOList.add(FilmWhithAllRelatedEntitiesMapper.FILM_WHITH_ALL_RELATED_ENTITIES_MAPPER.fromFilm(film));
+        }
+        return filmMapperDTOList;
     }
 
-    public List<Film> getFilmDirector(String lastNameDirector) {
-        System.out.println(filmRepository.findByLastNameDirector(lastNameDirector, Sort.by("year")).size());
-        return filmRepository.findByLastNameDirector(lastNameDirector, Sort.by("year"));
+    public List<FilmDTO> getFilmDirector(String lastNameDirector) {
+        List<FilmDTO> filmMapperDTOList = new ArrayList<>();
+        List<Film> filmList = filmRepository.findByLastNameDirector(lastNameDirector, Sort.by("year"));
+        for (Film film : filmList) {
+            filmMapperDTOList.add(FilmMapper.FILM_MAPPER.fromFilm(film));
+        }
+        return filmMapperDTOList;
     }
 
     public String deleteFilm(Long id) {

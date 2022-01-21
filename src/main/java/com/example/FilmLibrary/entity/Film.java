@@ -60,10 +60,9 @@ public class Film implements Serializable {
             joinColumns = @JoinColumn(name = "FILM_ID"),
             inverseJoinColumns = @JoinColumn(name = "DIRECTOR_ID")
     )
-    private List <Director> filmDirectors = new ArrayList<>();
+    private List <Director> filmDirectors;
 
     @JsonIgnore
     @ManyToOne (fetch = FetchType.LAZY, cascade=CascadeType.ALL )
-//   @JoinColumn(name = "country_id")
     private Country country;
 }

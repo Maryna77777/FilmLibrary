@@ -1,7 +1,7 @@
 package com.example.FilmLibrary.controller;
 
 import com.example.FilmLibrary.DTO.FilmDTO;
-import com.example.FilmLibrary.DTO.FilmWhithActorDTO;
+import com.example.FilmLibrary.DTO.FilmWhithAllRelatedEntitiesDTO;
 import com.example.FilmLibrary.entity.Film;
 import com.example.FilmLibrary.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +36,13 @@ public class FilmRestController {
     }
 
     @GetMapping("/allFilms")
-    public List<Film> findAllFilms() {
-        return service.getFilm();
+    public List<FilmDTO> findAllFilms() {
+        return service.getAllFilms();
     }
 
     @GetMapping("/allFilmsWhithActors")
-    public List<FilmDTO> findAllFilmsWithActors() {
-        return service.getAllFilmsWithActors();
+    public List<FilmWhithAllRelatedEntitiesDTO> findAllFilmsWithAllRelatedEntities() {
+        return service.getAllFilmsWhithAllRelatedEntities();
     }
 
     @GetMapping("/allFilmsPage")
@@ -51,17 +51,17 @@ public class FilmRestController {
     }
 
     @GetMapping("/filmById/{id}")
-    public Film findFilmById(@PathVariable Long id) {
+    public FilmWhithAllRelatedEntitiesDTO findFilmById(@PathVariable Long id) {
         return service.getFilmById(id);
     }
 
     @GetMapping("/findByLikeTitle/{title}")
-    public List<Film> findByLikeTitle(@PathVariable String title) {
+    public List<FilmWhithAllRelatedEntitiesDTO> findByLikeTitle(@PathVariable String title) {
         return service.getByLikeTitle(title);
     }
 
     @GetMapping("/filmByTitle/{title}")
-    public Film findFilmByTitle(@PathVariable String title) {
+    public FilmWhithAllRelatedEntitiesDTO findFilmByTitle(@PathVariable String title) {
         return service.getByTitle(title);
     }
 
@@ -77,12 +77,12 @@ public class FilmRestController {
     }
 
     @GetMapping("/filmByYear/{year}")
-    public List<Film> findFilmByYear(@PathVariable int year) {
+    public List<FilmWhithAllRelatedEntitiesDTO> findFilmByYear(@PathVariable int year) {
         return service.findByYear(year);
     }
 
     @GetMapping("/findFilmGenre/{category}")
-    public List<Film> findFilmGenre(@PathVariable String category) {
+    public List<FilmWhithAllRelatedEntitiesDTO> findFilmGenre(@PathVariable String category) {
         return service.getFilmGenre(category);
     }
 
@@ -97,12 +97,12 @@ public class FilmRestController {
     }
 
     @GetMapping("/findFilmActor/{lastName}")
-    public List<Film> findFilmActor(@PathVariable String lastName) {
+    public List<FilmDTO> findFilmActor(@PathVariable String lastName) {
         return service.getFilmActor(lastName);
     }
 
     @GetMapping("/findFilmDirector/{lastNameDirector}")
-    public List<Film> findFilmDirector(@PathVariable String lastNameDirector) {
+    public List<FilmDTO> findFilmDirector(@PathVariable String lastNameDirector) {
         return service.getFilmDirector(lastNameDirector);
     }
 }

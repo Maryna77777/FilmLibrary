@@ -16,15 +16,20 @@ public class GenreService {
     GenreRepository genreRepository;
 
     public Genre saveGenre(Genre genre) {
-        return   genreRepository.save(genre);
+        return genreRepository.save(genre);
     }
 
     public List<Genre> saveGenres(List<Genre> genres) {
         return genreRepository.saveAll(genres);
     }
 
-    public List<Genre> getGenre() {
-        return genreRepository.findAll();
+    public List<GenreDTO> getAllGenre() {
+        List<GenreDTO> genreDTOList = new ArrayList<>();
+        List <Genre> genreList=genreRepository.findAll();
+        for ( Genre genre: genreList){
+            genreDTOList.add(GenreMapper.GENRE_MAPPER.fromGenre(genre));
+        }
+        return genreDTOList;
     }
 
     public Genre getGenreById(Long id) {
@@ -41,7 +46,7 @@ public class GenreService {
        List<GenreDTO> genreDTOList=new ArrayList<>();
         List<Genre> genreList = (genreRepository.findAll());
         for (Genre genre : genreList) {
-            genreDTOList.add(GenreMapper.Genre_MAPPER.fromGenre(genre));
+            genreDTOList.add(GenreMapper.GENRE_MAPPER.fromGenre(genre));
         }
         return genreDTOList;
     }
