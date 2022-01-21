@@ -1,7 +1,6 @@
 package com.example.FilmLibrary.controller;
 
 import com.example.FilmLibrary.DTO.GenreDTO;
-import com.example.FilmLibrary.entity.Genre;
 import com.example.FilmLibrary.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +20,8 @@ public class GenreRestController {
     }
 
     @PostMapping("/addGenre")
-    public Genre addGenre (@RequestBody Genre genre) {
-        return genreService.saveGenre (genre);
+    public GenreDTO addGenre (@RequestBody GenreDTO genreDTO) {
+        return genreService.saveGenre(genreDTO);
     }
 
     @GetMapping("/allGenres")
@@ -31,13 +30,13 @@ public class GenreRestController {
     }
 
     @GetMapping("/genreById/{id}")
-    public Genre findGenreById(@PathVariable Long id) {
+    public GenreDTO findGenreById(@PathVariable Long id) {
         return genreService.getGenreById(id);
     }
 
-      @PutMapping("/updateGenre")
-    public Genre updateGenre(@RequestBody Genre genre) {
-        return genreService.updateGenre(genre);
+    @PutMapping("/updateGenre")
+    public GenreDTO updateGenre(@RequestBody GenreDTO genreDTO) {
+        return genreService.updateGenre(genreDTO);
     }
 
 }

@@ -6,7 +6,7 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ActorMapper {
     ActorMapper ACTOR_MAPPER = Mappers.getMapper(ActorMapper.class);
     ActorDTO fromActor(Actor actor);

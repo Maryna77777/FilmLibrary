@@ -15,12 +15,8 @@ public class GenreService {
     @Autowired
     GenreRepository genreRepository;
 
-    public Genre saveGenre(Genre genre) {
-        return genreRepository.save(genre);
-    }
-
-    public List<Genre> saveGenres(List<Genre> genres) {
-        return genreRepository.saveAll(genres);
+    public GenreDTO saveGenre(GenreDTO genreDTO) {
+        return GenreMapper.GENRE_MAPPER.fromGenre(genreRepository.save(GenreMapper.GENRE_MAPPER.toGenre(genreDTO)));
     }
 
     public List<GenreDTO> getAllGenre() {
@@ -32,14 +28,14 @@ public class GenreService {
         return genreDTOList;
     }
 
-    public Genre getGenreById(Long id) {
-        return genreRepository.findById(id).orElse(null);
+    public GenreDTO getGenreById(Long id) {
+        return GenreMapper.GENRE_MAPPER.fromGenre(genreRepository.findById(id).orElse(null));
     }
 
-    public Genre updateGenre (Genre genre) {
-        Genre existingGenre = genreRepository.findById(genre.getId()).orElse(null);
-        existingGenre.setCategory (genre.getCategory());
-        return genreRepository.save(existingGenre);
+    public GenreDTO updateGenre (GenreDTO genreDTO) {
+        Genre existingGenre = genreRepository.findById(GenreMapper.GENRE_MAPPER.toGenre(genreDTO).getId()).orElse(null);
+        existingGenre.setCategory (GenreMapper.GENRE_MAPPER.toGenre(genreDTO).getCategory());
+        return GenreMapper.GENRE_MAPPER.fromGenre(genreRepository.save(existingGenre));
     }
 
     public List<GenreDTO> getAllGenreWithFilm() {

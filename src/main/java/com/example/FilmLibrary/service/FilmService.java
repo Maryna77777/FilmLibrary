@@ -23,16 +23,10 @@ public class FilmService {
     @Autowired
     private FilmRepository filmRepository;
 
-    public Film saveFilm(Film film) {
-        return filmRepository.save(film);
+    public FilmDTO saveFilm(FilmDTO filmDTO) {
+        return FilmMapper.FILM_MAPPER.fromFilm(filmRepository.save(FilmMapper.FILM_MAPPER.toFilm(filmDTO)));
     }
-//    public FilmDTO saveFilmDTO(FilmDTO filmDTO) {
-//        return FilmMapper.FILM_MAPPER.fromFilm(filmRepository.save(film));
-//    }
 
-    public List<Film> saveFilms (List<Film> films) {
-        return filmRepository.saveAll(films);
-    }
 
     public List<FilmWhithAllRelatedEntitiesDTO> getAllFilmsWhithAllRelatedEntities() {
         List<FilmWhithAllRelatedEntitiesDTO> filmMapperDTOList = new ArrayList<>();
@@ -115,11 +109,11 @@ public class FilmService {
         return "film removed !! " + id;
     }
 
-    public Film updateFilm(Film film) {
-        Film existingFilm = filmRepository.findById(film.getId()).orElse(null);
-        existingFilm.setTitle(film.getTitle());
-        existingFilm.setYear(film.getYear());
-        return filmRepository.save(existingFilm);
+    public FilmDTO updateFilm(FilmDTO filmDTO) {
+        Film existingFilm = filmRepository.findById(FilmMapper.FILM_MAPPER.toFilm(filmDTO).getId()).orElse(null);
+        existingFilm.setTitle(FilmMapper.FILM_MAPPER.toFilm(filmDTO).getTitle());
+        existingFilm.setYear(FilmMapper.FILM_MAPPER.toFilm(filmDTO).getYear());
+        return FilmMapper.FILM_MAPPER.fromFilm(filmRepository.save(existingFilm));
     }
 
     public long countCategory(String category) {

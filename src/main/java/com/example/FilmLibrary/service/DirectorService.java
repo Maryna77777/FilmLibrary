@@ -2,13 +2,9 @@ package com.example.FilmLibrary.service;
 
 import com.example.FilmLibrary.DTO.DirectorDTO;
 import com.example.FilmLibrary.DTO.DirectorWhithAllRelatedEntitiesDTO;
-import com.example.FilmLibrary.DTO.FilmDTO;
 import com.example.FilmLibrary.entity.Director;
-import com.example.FilmLibrary.entity.Film;
 import com.example.FilmLibrary.mapper.DirectorMapper;
 import com.example.FilmLibrary.mapper.DirectorWhithAllRelatedEntitiesMapper;
-import com.example.FilmLibrary.mapper.FilmMapper;
-import com.example.FilmLibrary.mapper.FilmWhithAllRelatedEntitiesMapper;
 import com.example.FilmLibrary.repository.DirectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,12 +20,8 @@ public class DirectorService {
     @Autowired
     private DirectorRepository directorRepository;
 
-    public Director saveDirector(Director director) {
-        return   directorRepository.save(director);
-    }
-
-    public List<Director> saveDirectors(List<Director> directors) {
-        return directorRepository.saveAll(directors);
+    public DirectorDTO saveDirector(DirectorDTO directorDTO) {
+        return   DirectorMapper.DIRECTOR_MAPPER.fromDirector(directorRepository.save(DirectorMapper.DIRECTOR_MAPPER.toDirector(directorDTO)));
     }
 
     public DirectorWhithAllRelatedEntitiesDTO getDirectorById(Long id) {
@@ -40,11 +32,11 @@ public class DirectorService {
         return DirectorWhithAllRelatedEntitiesMapper.DIRECTOR_WHITH_ALL_RELATED_ENTITIES_MAPPER.fromDirector(directorRepository.findByLastNameDirector(lastNameDirector));
     }
 
-    public Director updateDirector (Director director) {
-        Director existingDirector = directorRepository.findById(director.getId()).orElse(null);
-        existingDirector.setFirstNameDirector (director.getFirstNameDirector());
-        existingDirector.setLastNameDirector(director.getLastNameDirector());
-        return directorRepository.save(existingDirector);
+    public DirectorDTO updateDirector (DirectorDTO directorDTO) {
+        Director existingDirector = directorRepository.findById(DirectorMapper.DIRECTOR_MAPPER.toDirector(directorDTO).getId()).orElse(null);
+        existingDirector.setFirstNameDirector (DirectorMapper.DIRECTOR_MAPPER.toDirector(directorDTO).getFirstNameDirector());
+        existingDirector.setLastNameDirector(DirectorMapper.DIRECTOR_MAPPER.toDirector(directorDTO).getLastNameDirector());
+        return DirectorMapper.DIRECTOR_MAPPER.fromDirector(directorRepository.save(existingDirector));
     }
 
     public String deleteDirector(Long id) {

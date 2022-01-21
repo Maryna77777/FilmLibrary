@@ -19,12 +19,8 @@ public class ActorService {
     @Autowired
     private ActorRepository actorRepository;
 
-    public Actor saveActor(Actor actor) {
-        return actorRepository.save(actor);
-    }
-
-    public List<Actor> saveActors(List<Actor> actors) {
-        return actorRepository.saveAll(actors);
+    public ActorDTO saveActor(ActorDTO actorDTO) {
+        return ActorMapper.ACTOR_MAPPER.fromActor(actorRepository.save(ActorMapper.ACTOR_MAPPER.toActor(actorDTO)));
     }
 
     public List<ActorDTO> getAllActors() {
@@ -54,11 +50,11 @@ public class ActorService {
         return actorDTOList;
     }
 
-    public Actor updateActor (Actor actor) {
-        Actor existingActor = actorRepository.findById(actor.getId()).orElse(null);
-        existingActor.setFirstName (actor.getFirstName());
-        existingActor.setLastName(actor.getLastName());
-        return actorRepository.save(existingActor);
+    public ActorDTO updateActor (ActorDTO actorDTO) {
+        Actor existingActor = actorRepository.findById(ActorMapper.ACTOR_MAPPER.toActor(actorDTO).getId()).orElse(null);
+        existingActor.setFirstName (ActorMapper.ACTOR_MAPPER.toActor(actorDTO).getFirstName());
+        existingActor.setLastName(ActorMapper.ACTOR_MAPPER.toActor(actorDTO).getLastName());
+        return ActorMapper.ACTOR_MAPPER.fromActor(actorRepository.save(existingActor));
     }
 
     public String deleteActor(Long id) {

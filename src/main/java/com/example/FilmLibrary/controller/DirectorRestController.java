@@ -21,13 +21,8 @@ public class DirectorRestController {
     DirectorService directorService;
 
     @PostMapping("/addDirector")
-    public Director addDirector  (@RequestBody Director director ) {
-        return directorService.saveDirector (director);
-    }
-
-    @PostMapping("/addDirectors")
-    public List<Director> addDirectors(@RequestBody List<Director> directorList) {
-        return directorService.saveDirectors(directorList);
+    public DirectorDTO addDirector  (@RequestBody DirectorDTO directorDTO ) {
+        return directorService.saveDirector (directorDTO);
     }
 
     @GetMapping("/allDirectors")
@@ -51,8 +46,8 @@ public class DirectorRestController {
     }
 
     @PutMapping("/updateDirector")
-    public Director updateDirector(@RequestBody Director director) {
-        return directorService.updateDirector(director);
+    public DirectorDTO updateDirector(@RequestBody DirectorDTO directorDTO) {
+        return directorService.updateDirector(directorDTO);
     }
 
     @DeleteMapping("/deleteDirector/{id}")

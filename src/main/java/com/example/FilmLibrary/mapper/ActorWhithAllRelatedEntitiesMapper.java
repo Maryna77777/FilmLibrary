@@ -9,6 +9,7 @@ import org.mapstruct.factory.Mappers;
 public interface ActorWhithAllRelatedEntitiesMapper {
     ActorWhithAllRelatedEntitiesMapper ACTOR_WHITH_ALL_RELATED_ENTITIES_MAPPER= Mappers.getMapper(ActorWhithAllRelatedEntitiesMapper.class);
     ActorWhithAllRelatedEntitiesDTO fromActor(Actor actor);
+    Actor toActor(ActorWhithAllRelatedEntitiesDTO actorWhithAllRelatedEntitiesDTO);
 }
 
 

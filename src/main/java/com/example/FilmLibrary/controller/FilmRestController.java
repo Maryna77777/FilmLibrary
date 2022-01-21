@@ -9,8 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.MediaType;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,13 +24,8 @@ public class FilmRestController {
     private FilmService service;
 
     @PostMapping("/")
-    public Film addFilm(@Valid @RequestBody Film film) {
-        return service.saveFilm(film);
-    }
-
-    @PostMapping("/addFilms")
-    public List<Film> addFilms(@RequestBody @Valid List<Film> filmList) {
-        return service.saveFilms(filmList);
+    public FilmDTO addFilm(@Valid @RequestBody FilmDTO filmDTO) {
+        return service.saveFilm(filmDTO);
     }
 
     @GetMapping("/allFilms")
@@ -66,9 +59,8 @@ public class FilmRestController {
     }
 
     @PutMapping("/updateFilm")
-    @RequestMapping(value = "/updateFilm", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Film updateFilm(@Valid @RequestBody Film film, BindingResult bindingResul) {
-        return service.updateFilm(film);
+    public FilmDTO updateFilm(@Valid @RequestBody FilmDTO filmDTO) {
+        return service.updateFilm(filmDTO);
     }
 
     @DeleteMapping("/delete/{id}")
