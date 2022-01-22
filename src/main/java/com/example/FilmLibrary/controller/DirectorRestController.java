@@ -3,7 +3,6 @@ package com.example.FilmLibrary.controller;
 
 import com.example.FilmLibrary.DTO.DirectorDTO;
 import com.example.FilmLibrary.DTO.DirectorWhithAllRelatedEntitiesDTO;
-import com.example.FilmLibrary.entity.Director;
 import com.example.FilmLibrary.service.DirectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,8 +30,8 @@ public class DirectorRestController {
  }
 
     @GetMapping("/allDirectorsPage")
-    public Page<Director> findAllDirectorsPage(@PageableDefault(sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
-        return directorService.getDirectorPage (pageable);
+    public Page<DirectorDTO> findAllDirectorsPage(@PageableDefault(sort = "lastNameDirector", size = 25, direction = Sort.Direction.ASC) Pageable pageable){
+        return directorService.getAllDirectorsPage(pageable);
     }
 
     @GetMapping("/directorById/{id}")

@@ -80,8 +80,6 @@ public class FilmService {
         return filmMapperDTOList;
     }
 
-
-
     public List<FilmDTO> getFilmDirector(String lastNameDirector) {
         List<FilmDTO> filmMapperDTOList = new ArrayList<>();
         List<Film> filmList = filmRepository.findByLastNameDirector(lastNameDirector, Sort.by("year"));

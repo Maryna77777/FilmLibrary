@@ -1,6 +1,5 @@
 package com.example.FilmLibrary.service;
 
-
 import com.example.FilmLibrary.DTO.CountryDTO;
 import com.example.FilmLibrary.entity.Country;
 import com.example.FilmLibrary.mapper.CountryMapper;
@@ -21,7 +20,6 @@ public class CountryService {
     public CountryDTO saveCountry(CountryDTO countryDTO) {
         return CountryMapper.Country_MAPPER.fromCountry(countryRepository.save(CountryMapper.Country_MAPPER.toCountry(countryDTO)));
     }
-
 
     public List<CountryDTO> getAllCountry() {
         List<CountryDTO> countryDTOList = new ArrayList<>();

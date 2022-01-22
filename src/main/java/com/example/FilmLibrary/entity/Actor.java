@@ -32,6 +32,5 @@ public class Actor implements Serializable {
     @ManyToMany(mappedBy = "actors")
     private List<Film> films;
     @ManyToOne (fetch = FetchType.LAZY, cascade=CascadeType.ALL )
-//   @JoinColumn(name = "country_id")
     private Country country;
 }

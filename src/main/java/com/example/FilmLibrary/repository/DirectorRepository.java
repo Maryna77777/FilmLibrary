@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface DirectorRepository extends JpaRepository<Director,Long> {
     Director findByLastNameDirector(String lastNameDirector);
     Page<Director> findAll(Pageable pageable);
-  //  Page<Employee> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
+
 }

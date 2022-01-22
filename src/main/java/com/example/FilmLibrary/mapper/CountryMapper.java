@@ -1,8 +1,6 @@
 package com.example.FilmLibrary.mapper;
 
-import com.example.FilmLibrary.DTO.ActorDTO;
 import com.example.FilmLibrary.DTO.CountryDTO;
-import com.example.FilmLibrary.entity.Actor;
 import com.example.FilmLibrary.entity.Country;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

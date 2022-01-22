@@ -7,8 +7,6 @@ import java.util.List;
 
 @Getter
 @Setter
-public class GenreWithFilmDTO {
-    private long id;
-    private String category;
+public class GenreWithFilmDTO extends GenreDTO{
     private List<FilmDTO> films;
 }
