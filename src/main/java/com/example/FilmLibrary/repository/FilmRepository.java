@@ -28,6 +28,9 @@ public interface FilmRepository extends JpaRepository <Film,Long> {
     @Query("select  f from Film f join f.genres g where g.category = :category")
     List<Film> findByCategory(@Param("category") String category);
 
+    @Query("select  f from Film f join f.genres g where g.category = :category")
+    Page<Film> findByCategory(@Param("category") String category,Pageable pageable);
+
     @Query("select count(f) from Film f join f.genres g where g.category = :category")
     long countFilmByCategory(@Param("category") String category);
 

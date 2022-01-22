@@ -10,6 +10,7 @@ import com.example.FilmLibrary.mapper.FilmWhithAllRelatedEntitiesMapper;
 import com.example.FilmLibrary.repository.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -27,27 +28,20 @@ public class FilmService {
         return FilmMapper.FILM_MAPPER.fromFilm(filmRepository.save(FilmMapper.FILM_MAPPER.toFilm(filmDTO)));
     }
 
-
-    public List<FilmWhithAllRelatedEntitiesDTO> getAllFilmsWhithAllRelatedEntities() {
-        List<FilmWhithAllRelatedEntitiesDTO> filmMapperDTOList = new ArrayList<>();
-        List<Film> filmList = filmRepository.findAll(Sort.by("title"));
-        for (Film film : filmList) {
-            filmMapperDTOList.add(FilmWhithAllRelatedEntitiesMapper.FILM_WHITH_ALL_RELATED_ENTITIES_MAPPER.fromFilm(film));
-        }
-        return filmMapperDTOList;
+     public List<FilmDTO> getAllFilms() {
+        return FilmMapper.FILM_MAPPER.fromListFilms(filmRepository.findAll());
     }
 
-    public List<FilmDTO> getAllFilms() {
-        List<FilmDTO> filmMapperDTOList = new ArrayList<>();
-        List<Film> filmList = filmRepository.findAll();
-        for (Film film : filmList) {
-            filmMapperDTOList.add(FilmMapper.FILM_MAPPER.fromFilm(film));
-        }
-        return filmMapperDTOList;
+    public Page<FilmDTO> getAllFilmsPage(Pageable pageable) {
+       Page<Film> filmPage=filmRepository.findAll(pageable);
+       List<FilmDTO> filmDTOList=FilmMapper.FILM_MAPPER.fromListFilms(filmPage.getContent());
+        return new PageImpl<>(filmDTOList, pageable, filmPage.getTotalElements());
     }
 
-    public Page <Film> getFilmPage(Pageable pageable) {
-        return filmRepository.findAll(pageable);
+    public Page<FilmWhithAllRelatedEntitiesDTO> getFilmGenre(String category, Pageable pageable) {
+        Page<Film> filmPage = filmRepository.findByCategory(category, pageable);
+        List<FilmWhithAllRelatedEntitiesDTO> filmDTOList = FilmWhithAllRelatedEntitiesMapper.FILM_WHITH_ALL_RELATED_ENTITIES_MAPPER.fromListFilms(filmPage.getContent());
+        return new PageImpl<>(filmDTOList, pageable, filmPage.getTotalElements());
     }
 
     public FilmWhithAllRelatedEntitiesDTO  getFilmById(Long id) {
@@ -86,14 +80,7 @@ public class FilmService {
         return filmMapperDTOList;
     }
 
-    public List<FilmWhithAllRelatedEntitiesDTO> getFilmGenre(String category) {
-        List<FilmWhithAllRelatedEntitiesDTO> filmMapperDTOList = new ArrayList<>();
-        List<Film> filmList = filmRepository.findByCategory(category);
-        for (Film film : filmList) {
-            filmMapperDTOList.add(FilmWhithAllRelatedEntitiesMapper.FILM_WHITH_ALL_RELATED_ENTITIES_MAPPER.fromFilm(film));
-        }
-        return filmMapperDTOList;
-    }
+
 
     public List<FilmDTO> getFilmDirector(String lastNameDirector) {
         List<FilmDTO> filmMapperDTOList = new ArrayList<>();
@@ -124,5 +111,13 @@ public class FilmService {
         return filmRepository.countFilmByYear(year);
     }
 
+    public List<FilmWhithAllRelatedEntitiesDTO> getAllFilmsWhithAllRelatedEntities() {
+        List<FilmWhithAllRelatedEntitiesDTO> filmMapperDTOList = new ArrayList<>();
+        List<Film> filmList = filmRepository.findAll(Sort.by("title"));
+        for (Film film : filmList) {
+            filmMapperDTOList.add(FilmWhithAllRelatedEntitiesMapper.FILM_WHITH_ALL_RELATED_ENTITIES_MAPPER.fromFilm(film));
+        }
+        return filmMapperDTOList;
+    }
 }
 
