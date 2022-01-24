@@ -5,6 +5,10 @@ import com.example.FilmLibrary.DTO.ActorDTO;
 import com.example.FilmLibrary.DTO.ActorWhithAllRelatedEntitiesDTO;
 import com.example.FilmLibrary.service.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +32,11 @@ public class ActorRestController {
     @GetMapping("/allActors")
     public List<ActorDTO> findAllActors() {
         return actorService.getAllActors();
+    }
+
+    @GetMapping("/allActorsPage")
+    public Page<ActorDTO> findAllActorsPage(@PageableDefault(sort = "lastName", direction = Sort.Direction.ASC) Pageable pageable) {
+        return actorService.getAllActorPage(pageable);
     }
 
     @GetMapping("/actorById/{id}")

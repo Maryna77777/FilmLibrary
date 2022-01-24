@@ -1,6 +1,5 @@
 package com.example.FilmLibrary.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

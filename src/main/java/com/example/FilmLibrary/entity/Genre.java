@@ -9,7 +9,6 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.List;
 
-
 @Entity
 @Getter
 @Setter
@@ -22,7 +21,6 @@ public class Genre {
     private Long id;
     @Column(name = "CATEGORY")
     private String category;
-
     @JsonIgnore
     @ManyToMany(mappedBy = "genres")
     private List<Film> films;

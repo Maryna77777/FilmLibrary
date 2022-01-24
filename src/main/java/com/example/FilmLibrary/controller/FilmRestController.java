@@ -2,7 +2,6 @@ package com.example.FilmLibrary.controller;
 
 import com.example.FilmLibrary.DTO.FilmDTO;
 import com.example.FilmLibrary.DTO.FilmWhithAllRelatedEntitiesDTO;
-import com.example.FilmLibrary.entity.Film;
 import com.example.FilmLibrary.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,8 +38,8 @@ public class FilmRestController {
     }
 
     @GetMapping("/allFilmsPage")
-    public Page<Film> findAllFilmPage(@PageableDefault(sort = "title", direction = Sort.Direction.ASC, size = 50) Pageable pageable) {
-        return service.getFilmPage(pageable);
+    public Page<FilmDTO> findAllFilmPage(@PageableDefault(sort = "title", size = 25, direction = Sort.Direction.ASC) Pageable pageable){
+        return service.getAllFilmsPage(pageable);
     }
 
     @GetMapping("/filmById/{id}")
@@ -74,8 +73,9 @@ public class FilmRestController {
     }
 
     @GetMapping("/findFilmGenre/{category}")
-    public List<FilmWhithAllRelatedEntitiesDTO> findFilmGenre(@PathVariable String category) {
-        return service.getFilmGenre(category);
+    public Page<FilmWhithAllRelatedEntitiesDTO> findFilmGenre(@PathVariable String category,
+                                                              @PageableDefault(sort = "title", size = 25, direction = Sort.Direction.ASC) Pageable pageable){
+        return service.getFilmGenre(category, pageable);
     }
 
     @GetMapping("/count/FilmGenre/{category}")

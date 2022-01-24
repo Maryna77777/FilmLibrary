@@ -8,6 +8,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface FilmMapper {
     FilmMapper FILM_MAPPER = Mappers.getMapper(FilmMapper.class);
@@ -19,5 +21,7 @@ public interface FilmMapper {
     FilmDTO fromFilm(Film film);
     @InheritInverseConfiguration
     Film toFilm(FilmDTO filmDTO);
+    List<FilmDTO> fromListFilms(List<Film> filmList);
+
 }
 

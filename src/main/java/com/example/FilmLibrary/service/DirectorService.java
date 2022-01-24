@@ -8,6 +8,7 @@ import com.example.FilmLibrary.mapper.DirectorWhithAllRelatedEntitiesMapper;
 import com.example.FilmLibrary.repository.DirectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -53,8 +54,10 @@ public class DirectorService {
         return directorDTOList;
     }
 
-    public Page<Director> getDirectorPage(Pageable pageable) {
-        return directorRepository.findAll(pageable) ;
+    public Page<DirectorDTO> getAllDirectorsPage(Pageable pageable) {
+        Page<Director> directorPage=directorRepository.findAll(pageable);
+        List<DirectorDTO> directorDTOList= DirectorMapper.DIRECTOR_MAPPER.fromListDirectors(directorPage.getContent());
+        return new PageImpl<>(directorDTOList, pageable, directorPage.getTotalElements());
     }
 
 }

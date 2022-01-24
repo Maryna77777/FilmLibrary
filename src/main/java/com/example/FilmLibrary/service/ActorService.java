@@ -8,6 +8,9 @@ import com.example.FilmLibrary.mapper.ActorWhithAllRelatedEntitiesMapper;
 import com.example.FilmLibrary.repository.ActorRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,6 +34,12 @@ public class ActorService {
         }
         System.out.println(actorRepository.findAll().size());
         return actorDTOList;
+    }
+
+    public Page<ActorDTO> getAllActorPage(Pageable pageable) {
+        Page<Actor> actorPage=actorRepository.findAll(pageable);
+        List<ActorDTO> actorDTOList= ActorMapper.ACTOR_MAPPER.fromListActors(actorPage.getContent());
+        return new PageImpl<>(actorDTOList, pageable, actorPage.getTotalElements());
     }
 
     public ActorWhithAllRelatedEntitiesDTO getActorById(Long id) {

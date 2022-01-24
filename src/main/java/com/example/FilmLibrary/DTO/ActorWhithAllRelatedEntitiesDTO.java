@@ -9,10 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ActorWhithAllRelatedEntitiesDTO {
-    private long id;
-    private String firstName;
-    private String lastName;
+public class ActorWhithAllRelatedEntitiesDTO extends ActorDTO {
     private List<FilmDTO> films;
     private CountryDTO country;
 }
