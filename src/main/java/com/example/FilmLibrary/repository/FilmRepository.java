@@ -24,7 +24,6 @@ public interface FilmRepository extends JpaRepository <Film,Long> {
     @Query("select f from Film f where f.title like %:title%")
     List<Film> findByLikeTitle(@Param("title") String title);
 
-
     @Query("select  f from Film f join f.genres g where g.category = :category")
     List<Film> findByCategory(@Param("category") String category);
 
@@ -32,13 +31,10 @@ public interface FilmRepository extends JpaRepository <Film,Long> {
     long countFilmByCategory(@Param("category") String category);
 
 
-    @Query("select f from Film f join f.filmDirectors d where d.lastNameDirector = :lastNameDirector  ")
-    List<Film> findByLastNameDirector(@Param("lastNameDirector") String lastNameDirector, Sort sort);
+    @Query("select f from Film f join f.filmDirectors d where d.lastName = :lastName")
+    List<Film> findByLastNameDirector(@Param("lastName") String lastName, Sort sort);
 
     List<Film> findByYear(int year);
-    //@Query("select f from Film f join f.filmDirectors d where  f.year=:year ")
-    //     List<Film> findByYear(@Param("year") int year, Sort sort) ;
-
 
     @Query("select  f from Film f join f.actors a where  a.lastName = :lastName")
     List<Film> findByLastName(@Param("lastName") String lastName);

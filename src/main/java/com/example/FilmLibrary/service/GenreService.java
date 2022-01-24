@@ -38,13 +38,4 @@ public class GenreService {
         return GenreMapper.GENRE_MAPPER.fromGenre(genreRepository.save(existingGenre));
     }
 
-    public List<GenreDTO> getAllGenreWithFilm() {
-       List<GenreDTO> genreDTOList=new ArrayList<>();
-        List<Genre> genreList = (genreRepository.findAll());
-        for (Genre genre : genreList) {
-            genreDTOList.add(GenreMapper.GENRE_MAPPER.fromGenre(genre));
-        }
-        return genreDTOList;
-    }
-
 }

@@ -20,9 +20,9 @@ public class Director {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "firstNameDirector")
-    private String firstNameDirector;
+    private String firstName;
     @Column(name = "LAST_NAME_DIRECTOR")
-    private String lastNameDirector;
+    private String lastName;
     @JsonIgnore
     @ManyToMany(mappedBy = "filmDirectors")
     private List<Film> films;

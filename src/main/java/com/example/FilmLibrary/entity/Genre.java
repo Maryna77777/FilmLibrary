@@ -22,7 +22,6 @@ public class Genre {
     private Long id;
     @Column(name = "CATEGORY")
     private String category;
-
     @JsonIgnore
     @ManyToMany(mappedBy = "genres")
     private List<Film> films;

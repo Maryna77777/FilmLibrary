@@ -27,7 +27,6 @@ public class FilmService {
         return FilmMapper.FILM_MAPPER.fromFilm(filmRepository.save(FilmMapper.FILM_MAPPER.toFilm(filmDTO)));
     }
 
-
     public List<FilmWhithAllRelatedEntitiesDTO> getAllFilmsWhithAllRelatedEntities() {
         List<FilmWhithAllRelatedEntitiesDTO> filmMapperDTOList = new ArrayList<>();
         List<Film> filmList = filmRepository.findAll(Sort.by("title"));
@@ -36,7 +35,6 @@ public class FilmService {
         }
         return filmMapperDTOList;
     }
-
     public List<FilmDTO> getAllFilms() {
         List<FilmDTO> filmMapperDTOList = new ArrayList<>();
         List<Film> filmList = filmRepository.findAll();
@@ -95,9 +93,9 @@ public class FilmService {
         return filmMapperDTOList;
     }
 
-    public List<FilmDTO> getFilmDirector(String lastNameDirector) {
+    public List<FilmDTO> getFilmDirector(String lastName) {
         List<FilmDTO> filmMapperDTOList = new ArrayList<>();
-        List<Film> filmList = filmRepository.findByLastNameDirector(lastNameDirector, Sort.by("year"));
+        List<Film> filmList = filmRepository.findByLastNameDirector(lastName, Sort.by("year"));
         for (Film film : filmList) {
             filmMapperDTOList.add(FilmMapper.FILM_MAPPER.fromFilm(film));
         }

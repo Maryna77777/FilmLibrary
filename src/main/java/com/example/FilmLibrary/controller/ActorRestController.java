@@ -15,37 +15,37 @@ public class ActorRestController {
     @Autowired
     ActorService actorService;
 
-    @PostMapping("/addActor")
+    @PostMapping("/add")
     public ActorDTO addActor (@RequestBody ActorDTO actorDTO) {
         return actorService.saveActor(actorDTO);
     }
 
-    @GetMapping("/findActorFilm/{title}")
+    @GetMapping("/byFilm/{title}")
     public List<ActorWhithAllRelatedEntitiesDTO> findActorFilm (@PathVariable String title){
         return actorService.findActorFilms(title);
     }
 
-    @GetMapping("/allActors")
+    @GetMapping("/list")
     public List<ActorDTO> findAllActors() {
         return actorService.getAllActors();
     }
 
-    @GetMapping("/actorById/{id}")
+    @GetMapping("/byId/{id}")
     public ActorWhithAllRelatedEntitiesDTO findActorById(@PathVariable Long id) {
         return actorService.getActorById(id);
     }
 
-    @GetMapping("/actorByName/{lastName}")
+    @GetMapping("/byName/{lastName}")
     public ActorWhithAllRelatedEntitiesDTO findActorByLastName(@PathVariable String lastName) {
         return actorService.getActorByLastName(lastName);
     }
 
-    @PutMapping("/updateActor")
+    @PutMapping("/update")
     public ActorDTO updateActor(@RequestBody ActorDTO actorDTO) {
         return actorService.updateActor(actorDTO);
     }
 
-    @DeleteMapping("/deleteActor/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteActor(@PathVariable Long id) {
         return actorService.deleteActor(id);
     }

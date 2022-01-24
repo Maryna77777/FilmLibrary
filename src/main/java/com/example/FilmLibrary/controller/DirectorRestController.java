@@ -20,37 +20,37 @@ public class DirectorRestController {
     @Autowired
     DirectorService directorService;
 
-    @PostMapping("/addDirector")
+    @PostMapping("/add")
     public DirectorDTO addDirector  (@RequestBody DirectorDTO directorDTO ) {
         return directorService.saveDirector (directorDTO);
     }
 
-    @GetMapping("/allDirectors")
+    @GetMapping("/list")
    public List<DirectorDTO> findAllDirectors() {
      return directorService.getAllDirector();
  }
 
-    @GetMapping("/allDirectorsPage")
+    @GetMapping("/allPage")
     public Page<Director> findAllDirectorsPage(@PageableDefault(sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
         return directorService.getDirectorPage (pageable);
     }
 
-    @GetMapping("/directorById/{id}")
+    @GetMapping("/byId/{id}")
     public DirectorWhithAllRelatedEntitiesDTO findDirectorById(@PathVariable Long id) {
         return directorService.getDirectorById(id);
     }
 
-    @GetMapping("/directorByName/{lastNameDirector}")
+    @GetMapping("/byName/{lastName}")
     public DirectorWhithAllRelatedEntitiesDTO findDirectorByLastName(@PathVariable String lastNameDirector) {
         return directorService.getDirectorByLastName(lastNameDirector);
     }
 
-    @PutMapping("/updateDirector")
+    @PutMapping("/update")
     public DirectorDTO updateDirector(@RequestBody DirectorDTO directorDTO) {
         return directorService.updateDirector(directorDTO);
     }
 
-    @DeleteMapping("/deleteDirector/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteDirector(@PathVariable Long id) {
         return directorService.deleteDirector(id);
     }

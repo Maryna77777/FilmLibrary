@@ -21,17 +21,17 @@ public class CountryRestController {
     @PostMapping()
     public CountryDTO addCountry(@Valid @RequestBody CountryDTO countryDTO){return service.saveCountry(countryDTO);}
 
-    @GetMapping("/allCountries")
+    @GetMapping("/list")
     public List<CountryDTO> findAllCountry() {
         return service.getAllCountry();
     }
 
-    @GetMapping("/countryById/{id}")
+    @GetMapping("/byId/{id}")
     public CountryDTO findCountryById(@PathVariable Long id) {
         return service.getCountryById(id);
     }
 
-    @PutMapping("/updateCountry")
+    @PutMapping("/update")
     public CountryDTO updateCountry(@RequestBody CountryDTO countryDTO) {
         return service.updateCountry(countryDTO);
     }

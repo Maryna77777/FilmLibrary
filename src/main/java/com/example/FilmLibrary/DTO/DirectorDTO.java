@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class DirectorDTO {
     private long id;
-    private String firstNameDirector;
-    private String lastNameDirector;
+    private String firstName;
+    private String lastName;
 }
