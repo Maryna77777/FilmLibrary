@@ -1,6 +1,6 @@
  <h2>Film Library</h2>
 
-Training project of creation RESTful. <br>
+Training project of creation RESTful API. <br>
 The main purpose of the project is to apply the knowledge of Java using the Spring Boot framework and repository technology Spring DATA JPA.<br>
 
 <h3>Technologies used:</h3>
