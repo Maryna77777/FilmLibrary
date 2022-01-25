@@ -27,32 +27,32 @@ public class FilmRestController {
         return service.saveFilm(filmDTO);
     }
 
-    @GetMapping("/allFilms")
+    @GetMapping("/all")
     public List<FilmDTO> findAllFilms() {
         return service.getAllFilms();
     }
 
-    @GetMapping("/allFilmsWhithActors")
+    @GetMapping("/allWhithActors")
     public List<FilmWhithAllRelatedEntitiesDTO> findAllFilmsWithAllRelatedEntities() {
         return service.getAllFilmsWhithAllRelatedEntities();
     }
 
-    @GetMapping("/allFilmsPage")
+    @GetMapping("/allPage")
     public Page<FilmDTO> findAllFilmPage(@PageableDefault(sort = "title", size = 25, direction = Sort.Direction.ASC) Pageable pageable){
         return service.getAllFilmsPage(pageable);
     }
 
-    @GetMapping("/filmById/{id}")
+    @GetMapping("/byId/{id}")
     public FilmWhithAllRelatedEntitiesDTO findFilmById(@PathVariable Long id) {
         return service.getFilmById(id);
     }
 
-    @GetMapping("/findByLikeTitle/{title}")
+    @GetMapping("/byLikeTitle/{title}")
     public List<FilmWhithAllRelatedEntitiesDTO> findByLikeTitle(@PathVariable String title) {
         return service.getByLikeTitle(title);
     }
 
-    @GetMapping("/filmByTitle/{title}")
+    @GetMapping("/byTitle/{title}")
     public FilmWhithAllRelatedEntitiesDTO findFilmByTitle(@PathVariable String title) {
         return service.getByTitle(title);
     }
@@ -67,18 +67,18 @@ public class FilmRestController {
         return service.deleteFilm(id);
     }
 
-    @GetMapping("/filmByYear/{year}")
+    @GetMapping("/byYear/{year}")
     public List<FilmWhithAllRelatedEntitiesDTO> findFilmByYear(@PathVariable int year) {
         return service.findByYear(year);
     }
 
-    @GetMapping("/findFilmGenre/{category}")
+    @GetMapping("/byGenre/{category}")
     public Page<FilmWhithAllRelatedEntitiesDTO> findFilmGenre(@PathVariable String category,
                                                               @PageableDefault(sort = "title", size = 25, direction = Sort.Direction.ASC) Pageable pageable){
         return service.getFilmGenre(category, pageable);
     }
 
-    @GetMapping("/count/FilmGenre/{category}")
+    @GetMapping("/count/byGenre/{category}")
     public long countFilmGenre(@PathVariable String category) {
         return service.countCategory(category);
     }
@@ -88,14 +88,14 @@ public class FilmRestController {
         return service.countYear(year);
     }
 
-    @GetMapping("/findFilmActor/{lastName}")
+    @GetMapping("/byActor/{lastName}")
     public List<FilmDTO> findFilmActor(@PathVariable String lastName) {
         return service.getFilmActor(lastName);
     }
 
-    @GetMapping("/findFilmDirector/{lastNameDirector}")
-    public List<FilmDTO> findFilmDirector(@PathVariable String lastNameDirector) {
-        return service.getFilmDirector(lastNameDirector);
+    @GetMapping("/byDirector/{lastName}")
+    public List<FilmDTO> findFilmDirector(@PathVariable String lastName) {
+        return service.getFilmDirector(lastName);
     }
 }
 

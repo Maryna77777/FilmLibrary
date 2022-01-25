@@ -13,23 +13,18 @@ public class GenreRestController {
     @Autowired
     GenreService genreService;
 
-    @GetMapping("/allGenreFilm")
-    public List<GenreDTO> findAllGenreFilm(){
 
-        return genreService.getAllGenreWithFilm();
-    }
-
-    @PostMapping("/addGenre")
+    @PostMapping("/add")
     public GenreDTO addGenre (@RequestBody GenreDTO genreDTO) {
         return genreService.saveGenre(genreDTO);
     }
 
-    @GetMapping("/allGenres")
+    @GetMapping("/all")
     public List<GenreDTO> findAllGenres() {
         return genreService.getAllGenre();
     }
 
-    @GetMapping("/genreById/{id}")
+    @GetMapping("/byId/{id}")
     public GenreDTO findGenreById(@PathVariable Long id) {
         return genreService.getGenreById(id);
     }

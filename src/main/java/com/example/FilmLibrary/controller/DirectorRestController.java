@@ -19,37 +19,37 @@ public class DirectorRestController {
     @Autowired
     DirectorService directorService;
 
-    @PostMapping("/addDirector")
+    @PostMapping("/add")
     public DirectorDTO addDirector  (@RequestBody DirectorDTO directorDTO ) {
         return directorService.saveDirector (directorDTO);
     }
 
-    @GetMapping("/allDirectors")
+    @GetMapping("/all")
    public List<DirectorDTO> findAllDirectors() {
      return directorService.getAllDirector();
  }
 
-    @GetMapping("/allDirectorsPage")
-    public Page<DirectorDTO> findAllDirectorsPage(@PageableDefault(sort = "lastNameDirector", size = 25, direction = Sort.Direction.ASC) Pageable pageable){
+    @GetMapping("/allPage")
+    public Page<DirectorDTO> findAllDirectorsPage(@PageableDefault(sort = "lastName", size = 25, direction = Sort.Direction.ASC) Pageable pageable){
         return directorService.getAllDirectorsPage(pageable);
     }
 
-    @GetMapping("/directorById/{id}")
+    @GetMapping("/byId/{id}")
     public DirectorWhithAllRelatedEntitiesDTO findDirectorById(@PathVariable Long id) {
         return directorService.getDirectorById(id);
     }
 
-    @GetMapping("/directorByName/{lastNameDirector}")
-    public DirectorWhithAllRelatedEntitiesDTO findDirectorByLastName(@PathVariable String lastNameDirector) {
-        return directorService.getDirectorByLastName(lastNameDirector);
+    @GetMapping("/byName/{lastName}")
+    public DirectorWhithAllRelatedEntitiesDTO findDirectorByLastName(@PathVariable String lastName) {
+        return directorService.getDirectorByLastName(lastName);
     }
 
-    @PutMapping("/updateDirector")
+    @PutMapping("/update")
     public DirectorDTO updateDirector(@RequestBody DirectorDTO directorDTO) {
         return directorService.updateDirector(directorDTO);
     }
 
-    @DeleteMapping("/deleteDirector/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteDirector(@PathVariable Long id) {
         return directorService.deleteDirector(id);
     }
