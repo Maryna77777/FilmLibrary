@@ -29,14 +29,14 @@ public class DirectorService {
         return DirectorWhithAllRelatedEntitiesMapper.DIRECTOR_WHITH_ALL_RELATED_ENTITIES_MAPPER.fromDirector(directorRepository.findById(id).orElse(null));
     }
 
-    public DirectorWhithAllRelatedEntitiesDTO getDirectorByLastName(String lastNameDirector) {
-        return DirectorWhithAllRelatedEntitiesMapper.DIRECTOR_WHITH_ALL_RELATED_ENTITIES_MAPPER.fromDirector(directorRepository.findByLastNameDirector(lastNameDirector));
+    public DirectorWhithAllRelatedEntitiesDTO getDirectorByLastName(String lastName) {
+        return DirectorWhithAllRelatedEntitiesMapper.DIRECTOR_WHITH_ALL_RELATED_ENTITIES_MAPPER.fromDirector(directorRepository.findByLastName(lastName));
     }
 
     public DirectorDTO updateDirector (DirectorDTO directorDTO) {
         Director existingDirector = directorRepository.findById(DirectorMapper.DIRECTOR_MAPPER.toDirector(directorDTO).getId()).orElse(null);
-        existingDirector.setFirstNameDirector (DirectorMapper.DIRECTOR_MAPPER.toDirector(directorDTO).getFirstNameDirector());
-        existingDirector.setLastNameDirector(DirectorMapper.DIRECTOR_MAPPER.toDirector(directorDTO).getLastNameDirector());
+        existingDirector.setFirstName (DirectorMapper.DIRECTOR_MAPPER.toDirector(directorDTO).getFirstName());
+        existingDirector.setLastName(DirectorMapper.DIRECTOR_MAPPER.toDirector(directorDTO).getLastName());
         return DirectorMapper.DIRECTOR_MAPPER.fromDirector(directorRepository.save(existingDirector));
     }
 
@@ -47,7 +47,7 @@ public class DirectorService {
 
     public List<DirectorDTO> getAllDirector() {
         List<DirectorDTO> directorDTOList = new ArrayList<>();
-        List<Director> directorList = directorRepository.findAll(Sort.by("lastNameDirector"));
+        List<Director> directorList = directorRepository.findAll(Sort.by("lastName"));
         for (Director director: directorList) {
             directorDTOList.add(DirectorMapper.DIRECTOR_MAPPER.fromDirector(director));
         }
