@@ -4,7 +4,9 @@ import com.example.FilmLibrary.entity.Film;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -15,7 +17,10 @@ import java.util.List;
 
 @Repository
 
-public interface FilmRepository extends JpaRepository <Film,Long> {
+public interface FilmRepository extends JpaRepository <Film,Long>, JpaSpecificationExecutor<Film> {
+
+    Page<Film> findAll(Specification<Film> spec, Pageable pageable);
+
 
     Page<Film> findAll(Pageable pageable);
 

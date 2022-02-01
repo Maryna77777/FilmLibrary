@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.6</version>
+		<version>2.6.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
@@ -40,16 +40,38 @@
 			<version>2.6.2</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/net.n2oapp.criteria/criteria-api -->
+		<dependency>
+			<groupId>net.n2oapp.criteria</groupId>
+			<artifactId>criteria-api</artifactId>
+			<version>7.20.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>5.3.6.Final</version>
+		</dependency>
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.projectlombok</groupId>-->
+<!--			<artifactId>lombok</artifactId>-->
+<!--			<optional>true</optional>-->
+<!--		</dependency>-->
+
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+			<version>1.18.22</version>
+			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
@@ -83,6 +105,79 @@
 			<version>3.0.0</version>
 		</dependency>
 
+
+<!--			<dependency>-->
+<!--				<groupId>javax.xml.bind</groupId>-->
+<!--				<artifactId>jaxb-api</artifactId>-->
+<!--				<version>2.3.0</version>-->
+<!--			</dependency>-->
+<!--			<dependency>-->
+<!--				<groupId>com.sun.xml.bind</groupId>-->
+<!--				<artifactId>jaxb-impl</artifactId>-->
+<!--				<version>2.3.0</version>-->
+<!--			</dependency>-->
+<!--			<dependency>-->
+<!--				<groupId>org.glassfish.jaxb</groupId>-->
+<!--				<artifactId>jaxb-runtime</artifactId>-->
+<!--				<version>2.3.0</version>-->
+<!--			</dependency>-->
+<!--			<dependency>-->
+<!--				<groupId>javax.activation</groupId>-->
+<!--				<artifactId>activation</artifactId>-->
+<!--				<version>1.1.1</version>-->
+<!--			</dependency>-->
+
+
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-runtime</artifactId>
+			<version>2.3.1</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>javax.activation-api</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-runtime</artifactId>
+		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>com.sun.xml.bind</groupId>-->
+<!--			<artifactId>jaxb-impl</artifactId>-->
+<!--			<version>3.0.2</version>-->
+<!--		</dependency>-->
+
+
+<!--		&lt;!&ndash; https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-core &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>com.sun.xml.bind</groupId>-->
+<!--			<artifactId>jaxb-core</artifactId>-->
+<!--			<version>3.0.2</version>-->
+<!--		</dependency>-->
+
+
+
+
+
+
+		<!--		-->
+<!--		<dependency>-->
+<!--			<groupId>org.glassfish.jaxb</groupId>-->
+<!--			<artifactId>jaxb-runtime</artifactId>-->
+<!--			<version>2.4.0-b180830.0438</version>-->
+<!--		</dependency>-->
+
+
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-boot-starter</artifactId>
@@ -94,6 +189,8 @@
 			<artifactId>springfox-swagger2</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+
+
 
 		<!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
 		<dependency>
@@ -115,6 +212,14 @@
 		</dependency>
 	</dependencies>
 
+	<repositories>
+		<repository>
+			<id>jvnet-nexus-staging</id>
+			<url>http://maven.java.net/content/repositories/staging/</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -128,7 +233,25 @@
 						</exclude>
 					</excludes>
 				</configuration>
+
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<annotationProcessorPaths>
+						<annotationProcessorPath>
+							<groupId>org.hibernate</groupId>
+							<artifactId>hibernate-jpamodelgen</artifactId>
+							<version>5.3.7.Final</version>
+						</annotationProcessorPath>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+
+
 		</plugins>
 	</build>
 

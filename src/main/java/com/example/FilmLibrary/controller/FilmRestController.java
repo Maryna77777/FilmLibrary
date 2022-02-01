@@ -2,6 +2,7 @@ package com.example.FilmLibrary.controller;
 
 import com.example.FilmLibrary.DTO.FilmDTO;
 import com.example.FilmLibrary.DTO.FilmWhithAllRelatedEntitiesDTO;
+import com.example.FilmLibrary.entity.Film;
 import com.example.FilmLibrary.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -97,5 +98,13 @@ public class FilmRestController {
     public List<FilmDTO> findFilmDirector(@PathVariable String lastName) {
         return service.getFilmDirector(lastName);
     }
+
+    @GetMapping("filtration/{title}/{year}/{country}")
+    public List<Film> filtration(@PathVariable String title,
+                                 @PathVariable int year,
+                                 @PathVariable String country){ return service.findByCriteria(title,year, country);}
+
+
+
 }
 
