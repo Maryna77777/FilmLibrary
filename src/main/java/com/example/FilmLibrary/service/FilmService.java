@@ -4,6 +4,7 @@ package com.example.FilmLibrary.service;
 import com.example.FilmLibrary.DTO.FilmDTO;
 import com.example.FilmLibrary.DTO.FilmWhithAllRelatedEntitiesDTO;
 
+import com.example.FilmLibrary.FilmSpecification;
 import com.example.FilmLibrary.entity.Country;
 import com.example.FilmLibrary.entity.Film;
 import com.example.FilmLibrary.mapper.FilmMapper;
@@ -126,10 +127,9 @@ public class FilmService {
         return filmMapperDTOList;
     }
 
-    //   public List<Film> findAllSpecification (FilmFilter filter){
-     //   return  filmRepository.findAll(FilmSpecification.getFilmsSpecification(filter));
-        //return filmRepository.findAll(FilmSpecification.getFilmsSpecification(film));
- //   }
+       public List<Film> findSpecificationByCountry (String country){
+               return filmRepository.findAll(FilmSpecification.getFilmsSpecificationJoinCountry(country));
+    }
 
     public List<Film> findByCriteria(String title, int year, String country ){
         return filmRepository.findAll(new Specification<Film>() {
@@ -142,8 +142,6 @@ public class FilmService {
                 if(year!=0){
                     predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("year"), year)));
                 }
-
-//                predicates.add(criteriaBuilder.equal(
 //                                root.join("country").get("id"),root.get("id")));}
 
 //                Join<Film, Country> country = root.join("country_id");

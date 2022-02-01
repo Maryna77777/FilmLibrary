@@ -1,23 +1,62 @@
-//package com.example.FilmLibrary;
-//
-//import com.example.FilmLibrary.entity.Film;
-//import com.example.FilmLibrary.service.FilmService;
-//import lombok.NonNull;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.jpa.domain.Specification;
-//import org.springframework.stereotype.Component;
-//
-//import javax.persistence.EntityManager;
-//import javax.persistence.PersistenceContext;
-//import javax.persistence.criteria.CriteriaBuilder;
-//import javax.persistence.criteria.CriteriaQuery;
-//import javax.persistence.criteria.Predicate;
-//import javax.persistence.criteria.Root;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//@Component
-//public class FilmSpecification {
+package com.example.FilmLibrary;
+
+import com.example.FilmLibrary.entity.Country;
+
+import com.example.FilmLibrary.entity.Film;
+
+import com.example.FilmLibrary.service.FilmService;
+import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Component;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
+public class FilmSpecification {
+
+    public static Specification<Film> getFilmsSpecification(String title, int year) {
+        return new Specification<Film>() {
+
+            @Override
+            public Predicate toPredicate(Root<Film> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicates = new ArrayList<>();
+                if (title != null) {
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get(Film_.title), "%" + title + "%")));
+                    //               predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get("title"), "%"+title+"%")));
+                }
+                if (year != 0) {
+
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get(Film_.YEAR), year)));
+                    //              predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("year"), year)));
+                }
+                return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+                }
+            };
+        }
+
+    public static Specification<Film> getFilmsSpecificationJoinCountry (String name){
+        return new Specification<Film>() {
+            @Override
+            public Predicate toPredicate(Root<Film> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                ListJoin<Film, Country> countryJoin = (ListJoin<Film, Country>) root.join(Film_.country);
+                Predicate equalPredicate = criteriaBuilder.equal(countryJoin.get(Country_.NAME), name);
+                return equalPredicate;
+            }
+        };
+    }
+
+}
+
+
+
+
+
+
 //    @PersistenceContext
 //    private EntityManager entityManager;
 //
