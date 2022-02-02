@@ -5,22 +5,18 @@ import com.example.FilmLibrary.DTO.FilmDTO;
 import com.example.FilmLibrary.DTO.FilmWhithAllRelatedEntitiesDTO;
 
 import com.example.FilmLibrary.FilmSpecification;
-import com.example.FilmLibrary.entity.Country;
 import com.example.FilmLibrary.entity.Film;
 import com.example.FilmLibrary.mapper.FilmMapper;
 
 import com.example.FilmLibrary.mapper.FilmWhithAllRelatedEntitiesMapper;
 import com.example.FilmLibrary.repository.FilmRepository;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,9 +25,6 @@ import java.util.List;
 public class FilmService {
     @Autowired
     private FilmRepository filmRepository;
-//
-//    @Autowired
-//    private FilmSpecification specification;
 
     public FilmDTO saveFilm(FilmDTO filmDTO) {
         return FilmMapper.FILM_MAPPER.fromFilm(filmRepository.save(FilmMapper.FILM_MAPPER.toFilm(filmDTO)));
@@ -127,40 +120,17 @@ public class FilmService {
         return filmMapperDTOList;
     }
 
-       public List<Film> findSpecificationByCountry (String country){
-               return filmRepository.findAll(FilmSpecification.getFilmsSpecificationJoinCountry(country));
+    public List<FilmDTO> findSpecificationByCountry (String country){
+         return FilmMapper.FILM_MAPPER.fromListFilms(filmRepository.findAll(FilmSpecification.getFilmsSpecificationJoinCountry(country)));
     }
 
-    public List<Film> findByCriteria(String title, int year, String country ){
-        return filmRepository.findAll(new Specification<Film>() {
-            @Override
-            public Predicate toPredicate(Root<Film> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                List<Predicate> predicates = new ArrayList<>();
-                if(title!=null) {
-                    predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get("title"), "%"+title+"%")));
-                }
-                if(year!=0){
-                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("year"), year)));
-                }
-//                                root.join("country").get("id"),root.get("id")));}
-
-//                Join<Film, Country> country = root.join("country_id");
-//                predicates.add(criteriaBuilder.equal(country.get("id"), name));
-
-
-//                Join<Film, Country> country = root.join("country");
-//                predicates.add(criteriaBuilder.equal(country.get("name"), name));
-
-
- //               predicates.add(criteriaBuilder.equal(root.join("country_id").get("name"), country));
-
-                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
-            }
-        });
+    public List<FilmDTO> getFilmsFiltration (String title, int year, String country, String genre){
+        return FilmMapper.FILM_MAPPER.fromListFilms(filmRepository.findAll(FilmSpecification.getFilmsAllSpecification(title, year, country, genre)));
     }
 
-
-
+    public List<FilmDTO> getFilmsFiltration1 (String title, int year, String country, String genre){
+        return FilmMapper.FILM_MAPPER.fromListFilms(filmRepository.findAll(FilmSpecification.getFilmsAllSpecification1(title, year, country, genre)));
+    }
 
 }
 

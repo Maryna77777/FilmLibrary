@@ -2,7 +2,6 @@ package com.example.FilmLibrary.controller;
 
 import com.example.FilmLibrary.DTO.FilmDTO;
 import com.example.FilmLibrary.DTO.FilmWhithAllRelatedEntitiesDTO;
-import com.example.FilmLibrary.entity.Film;
 import com.example.FilmLibrary.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -99,12 +98,26 @@ public class FilmRestController {
         return service.getFilmDirector(lastName);
     }
 
-    @GetMapping("filtration/{title}/{year}/{country}")
-    public List<Film> filtration(@PathVariable String title,
-                                 @PathVariable int year,
-                                 @PathVariable String country){ return service.findByCriteria(title,year, country);}
 
+    @GetMapping("country/{country}")
+    public List<FilmDTO> findSpecificationByCountry (String country){
+        return service.findSpecificationByCountry(country);
+    }
 
+    @GetMapping("title/{title}/year/{year}/country/{country}/genre/{genre}")
+    public List<FilmDTO> findFilmFiltration (@PathVariable(required = false) String title,
+                                             @PathVariable(required = false) int year,
+                                             @PathVariable(required = false) String country,
+                                             @PathVariable(required = false) String genre){
+        return service.getFilmsFiltration(title,year, country, genre);
+    }
 
+    @GetMapping("filtration")
+    public List<FilmDTO> findFilmFiltration1 (@RequestParam (required = false) String title,
+                                              @RequestParam (required = false) int year,
+                                              @RequestParam (required = false) String country,
+                                              @RequestParam (required = false) String genre){
+        return service.getFilmsFiltration1(title,year, country, genre);
+    }
 }
 
