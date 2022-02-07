@@ -130,18 +130,16 @@ public class FilmService {
         return new PageImpl<>(filmDTOList, pageable, filmPage.getTotalElements());
     }
 
-    public Page<FilmDTO> getFilmsFiltrationPage (String title, int year, String country, String genre, Pageable pageable){
+    public Page<FilmDTO> getFilmsFiltrationPage (String title, Integer year, String country, String genre, Pageable pageable){
         Page<Film> filmPage=filmRepository.findAll(FilmSpecification.getFilmsAllSpecification(title, year, country, genre), pageable);
         List<FilmDTO> filmDTOList=FilmMapper.FILM_MAPPER.fromListFilms(filmPage.getContent());
         return  new PageImpl<>(filmDTOList, pageable, filmPage.getTotalElements());
     }
 
-    public List<FilmDTO> getFilmsFiltration (String title, int year, String country, String genre){
-        return FilmMapper.FILM_MAPPER.fromListFilms(filmRepository.findAll(FilmSpecification.getFilmsAllSpecification(title, year, country, genre)));
-    }
-
-    public List<FilmDTO> getFilmsFiltration1 (String title, int year, String country, String genre){
-        return FilmMapper.FILM_MAPPER.fromListFilms(filmRepository.findAll(FilmSpecification.getFilmsAllSpecification1(title, year, country, genre)));
+    public Page<FilmDTO> getFilmsFiltrationPageWithoutYear (String title, String country, String genre, Pageable pageable){
+        Page<Film> filmPage=filmRepository.findAll(FilmSpecification.getFilmsSpecification(title, country, genre), pageable);
+        List<FilmDTO> filmDTOList=FilmMapper.FILM_MAPPER.fromListFilms(filmPage.getContent());
+        return  new PageImpl<>(filmDTOList, pageable, filmPage.getTotalElements());
     }
 
 }

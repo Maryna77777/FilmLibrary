@@ -62,7 +62,7 @@ public class FilmSpecification {
         };
     }
 
-    public static Specification<Film> getFilmsSpecification(String title, int year) {
+    public static Specification<Film> getFilmsSpecification(String title, String country, String genre) {
         return new Specification<Film>() {
             @Override
             public Predicate toPredicate(Root<Film> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
@@ -70,8 +70,13 @@ public class FilmSpecification {
                 if (title != null) {
                    predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get("title"), "%"+title+"%")));
                 }
-                if (year != 0) {
-                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("year"), year)));
+                Join<Film, Country> countryJoin =  root.join(Film_.country);
+                if (country != null){
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(countryJoin.get(Country_.NAME), country)));
+                }
+                ListJoin<Film, Genre> genreJoin =  root.join(Film_.genres);
+                if (genre !=null){
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(genreJoin.get(Genre_.category), genre)));
                 }
                 return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
                 }
