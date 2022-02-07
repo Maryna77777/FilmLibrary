@@ -120,8 +120,20 @@ public class FilmService {
         return filmMapperDTOList;
     }
 
-    public List<FilmDTO> findSpecificationByCountry (String country){
+    public List<FilmDTO> getSpecificationByCountry (String country){
          return FilmMapper.FILM_MAPPER.fromListFilms(filmRepository.findAll(FilmSpecification.getFilmsSpecificationJoinCountry(country)));
+    }
+
+    public Page<FilmDTO> getSpecificationByCountryPage (String country, Pageable pageable){
+        Page<Film> filmPage=filmRepository.findAll(FilmSpecification.getFilmsSpecificationJoinCountry(country), pageable);
+        List<FilmDTO> filmDTOList=FilmMapper.FILM_MAPPER.fromListFilms(filmPage.getContent());
+        return new PageImpl<>(filmDTOList, pageable, filmPage.getTotalElements());
+    }
+
+    public Page<FilmDTO> getFilmsFiltrationPage (String title, int year, String country, String genre, Pageable pageable){
+        Page<Film> filmPage=filmRepository.findAll(FilmSpecification.getFilmsAllSpecification(title, year, country, genre), pageable);
+        List<FilmDTO> filmDTOList=FilmMapper.FILM_MAPPER.fromListFilms(filmPage.getContent());
+        return  new PageImpl<>(filmDTOList, pageable, filmPage.getTotalElements());
     }
 
     public List<FilmDTO> getFilmsFiltration (String title, int year, String country, String genre){

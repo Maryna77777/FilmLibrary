@@ -101,7 +101,22 @@ public class FilmRestController {
 
     @GetMapping("country/{country}")
     public List<FilmDTO> findSpecificationByCountry (String country){
-        return service.findSpecificationByCountry(country);
+        return service.getSpecificationByCountry(country);
+    }
+
+    @GetMapping("countryPage/{country}")
+    public Page<FilmDTO> findSpecificationByCountryPage (@PathVariable String country,
+                                                         @PageableDefault(sort = "title", size = 25, direction = Sort.Direction.ASC) Pageable pageable){
+        return service.getSpecificationByCountryPage (country, pageable);
+    }
+
+    @GetMapping("filtrationPage/title/{title}/year/{year}/country/{country}/genre/{genre}")
+    public Page<FilmDTO> findFilmFiltrationPage (@PathVariable(required = false) String title,
+                                                 @PathVariable(required = false) int year,
+                                                 @PathVariable(required = false) String country,
+                                                 @PathVariable(required = false) String genre,
+                                                 @PageableDefault(sort = "title", size = 25, direction = Sort.Direction.ASC) Pageable pageable){
+        return service.getFilmsFiltrationPage (title, year, country, genre, pageable);
     }
 
     @GetMapping("title/{title}/year/{year}/country/{country}/genre/{genre}")
@@ -109,7 +124,7 @@ public class FilmRestController {
                                              @PathVariable(required = false) int year,
                                              @PathVariable(required = false) String country,
                                              @PathVariable(required = false) String genre){
-        return service.getFilmsFiltration(title,year, country, genre);
+        return service.getFilmsFiltration (title, year, country, genre);
     }
 
     @GetMapping("filtration")
