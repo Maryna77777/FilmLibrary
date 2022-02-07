@@ -38,7 +38,7 @@ public class FilmRestController {
     }
 
     @GetMapping("/allPage")
-    public Page<FilmDTO> findAllFilmPage(@PageableDefault(sort = "title", size = 25, direction = Sort.Direction.ASC) Pageable pageable){
+    public Page<FilmDTO> findAllFilmPage(@PageableDefault(sort = "title", size = 25, direction = Sort.Direction.ASC) Pageable pageable) {
         return service.getAllFilmsPage(pageable);
     }
 
@@ -74,7 +74,7 @@ public class FilmRestController {
 
     @GetMapping("/byGenre/{category}")
     public Page<FilmWhithAllRelatedEntitiesDTO> findFilmGenre(@PathVariable String category,
-                                                              @PageableDefault(sort = "title", size = 25, direction = Sort.Direction.ASC) Pageable pageable){
+                                                              @PageableDefault(sort = "title", size = 25, direction = Sort.Direction.ASC) Pageable pageable) {
         return service.getFilmGenre(category, pageable);
     }
 
@@ -97,5 +97,44 @@ public class FilmRestController {
     public List<FilmDTO> findFilmDirector(@PathVariable String lastName) {
         return service.getFilmDirector(lastName);
     }
+
+
+    @GetMapping("country/{country}")
+    public List<FilmDTO> findSpecificationByCountry(String country) {
+        return service.getSpecificationByCountry(country);
+    }
+
+    @GetMapping("countryPage/{country}")
+    public Page<FilmDTO> findSpecificationByCountryPage(@PathVariable String country,
+                                                        @PageableDefault(sort = "title", size = 25, direction = Sort.Direction.ASC) Pageable pageable) {
+        return service.getSpecificationByCountryPage(country, pageable);
+    }
+
+    @GetMapping("filtrationPage/title/{title}/year/{year}/country/{country}/genre/{genre}")
+    public Page<FilmDTO> findFilmFiltrationPage(@PathVariable(required = false) String title,
+                                                @PathVariable(required = false) int year,
+                                                @PathVariable(required = false) String country,
+                                                @PathVariable(required = false) String genre,
+                                                @PageableDefault(sort = "title", size = 25, direction = Sort.Direction.ASC) Pageable pageable) {
+        return service.getFilmsFiltrationPage(title, year, country, genre, pageable);
+    }
+
+    @GetMapping("filtration")
+    public Page<FilmDTO> findFilmFiltration(@RequestParam(required = false) String title,
+                                            @RequestParam(required = false) int year,
+                                            @RequestParam(required = false) String country,
+                                            @RequestParam(required = false) String genre,
+                                            @PageableDefault(sort = "title", size = 25, direction = Sort.Direction.ASC) Pageable pageable) {
+        return service.getFilmsFiltrationPage(title, year, country, genre, pageable);
+    }
+
+    @GetMapping("filtrationPage")
+    public Page<FilmDTO> findFilmFiltrationWithoutYear(@RequestParam(required = false) String title,
+                                                       @RequestParam(required = false) String country,
+                                                       @RequestParam(required = false) String genre,
+                                                       @PageableDefault(sort = "title", size = 25, direction = Sort.Direction.ASC) Pageable pageable) {
+        return service.getFilmsFiltrationPageWithoutYear(title, country, genre, pageable);
+    }
 }
+
 
