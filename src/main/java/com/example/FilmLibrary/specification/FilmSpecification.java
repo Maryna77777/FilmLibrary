@@ -1,4 +1,4 @@
-package com.example.FilmLibrary;
+package com.example.FilmLibrary.specification;
 
 import com.example.FilmLibrary.entity.*;
 
